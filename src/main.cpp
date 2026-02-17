@@ -45,6 +45,7 @@ void initialize() {
 
     autonSelector = new AutonSelector();
     autonSelector->setAutons(std::vector<autonomousRoute>{
+        {"red",  "TEST Coords",     "coordinate test", coordinateTest},
         {"red",  "Red Lft <mid>",   "high & mid",  redAuton1},
         {"red",  "Red Lft <left>",  "turn left",   redAuton2}, // field偏左，机器向左偏，x-
         {"red",  "Red Lft <right>", "turn right",  redAuton3}, // field偏右，机器向右偏，x+

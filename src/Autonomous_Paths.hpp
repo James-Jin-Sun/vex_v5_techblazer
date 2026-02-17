@@ -104,11 +104,30 @@ void blueAuton2() {
 
 }
 
-// 下面 SkillsAuton / 其它函数保持你原文件内容不变（我没删没改逻辑）
-// ------- 你的原 Autonomous_Paths.hpp 后续内容 -------
 
 void SkillAuton() {
 
+}
+
+void coordinateTest() {
+    // Test 1: Start position
+    chassis.setPose(50, -11.7, 0);
+    pros::delay(2000);
+    
+    // Test 2: Move to (50, -45)
+    std::cout << "Moving to (50, -45)" << std::endl;
+    chassis.moveToPoint(50, -45, 5000);
+    pros::delay(3000);
+    
+    // Test 3: Move to origin
+    std::cout << "Moving to (0, 0)" << std::endl;
+    chassis.moveToPoint(0, 0, 5000);
+    pros::delay(3000);
+    
+    // Test 4: Move to (72, 0) - should be right wall
+    std::cout << "Moving to (72, 0)" << std::endl;
+    chassis.moveToPoint(72, 0, 5000);
+    pros::delay(10000);
 }
 
 #endif
