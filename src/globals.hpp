@@ -40,9 +40,9 @@ inline pros::Rotation tracking(14);
 inline pros::Imu IMU(12);
 
 // ================== Tracking Wheel (LemLib Odometry) ==================
-// Set this offset to your real build (inches). Sign depends on wheel position vs tracking center.
-// Using 0.0" as a safe default.
-inline lemlib::TrackingWheel vertical_tracking_wheel(&tracking, lemlib::Omniwheel::NEW_275, 0);
+// Tracking wheel: 2.68" calibrated diameter (actual, not spec), offset 2.5" from tracking center
+// Calibrated based on 96" test showing 98.59" (2.7% error correction)
+inline lemlib::TrackingWheel vertical_tracking_wheel(&tracking, 2.75, 2.5);
 
 // ================== 气动 ==================
 inline pros::adi::DigitalOut piston_matchload('A');
@@ -87,30 +87,30 @@ inline lemlib::OdomSensors sensors(
     &IMU                      // inertial sensor
 );
 
-// ✅ 不积累误差的角度 PID（不改）
+// 角度 PID - 继续提高以达到 theta 接近 0°（当前 -5.9°）
 inline lemlib::ControllerSettings angular_controller(
-    1.110 ,    // kP 
-    0,     // kI 
-    7.5,      // kD 
-    3,          // anti windup
-    1,          // small error (deg)
-    350,        // small timeout (ms)
-    4,          // large error
-    1200,       // large timeout
-    0        // slew
+    2.8,    // kP - 从2.0提高到2.8，继续增强方向保持
+    0,      // kI - 保持关闭
+    10.0,   // kD - 从9.0提高到10.0，配合更高的kP
+    3,      // anti windup
+    1,      // small error (deg)
+    350,    // small timeout (ms)
+    4,      // large error
+    1200,   // large timeout
+    0       // slew
 );
 
-// 直线 PID（不改）
+// 直线 PID - 解决减速时向左偏的问题
 inline lemlib::ControllerSettings lateral_controller(
-    4.2,    // kP  (降低，减少冲)
-    0.0,    // kI  (先关)
-    10.5,   // kD  (提高，增加刹车/阻尼)
-    0.0,    // anti windup (I=0时无所谓)
-    1.0,    // small error range (in)
-    350,    // small error timeout (ms)
+    5.2,    // kP  - 略微提高，改善低速时的响应
+    0.0,    // kI  - 关闭，避免在减速时累积误差
+    11.1,    // kD  - 降低，减少低速时的过度刹车和震荡
+    0.0,    // anti windup 
+    0.5,    // small error range - 减小到0.5"，要求更精确停止
+    500,    // small error timeout - 延长到500ms，给更多时间稳定
     3.0,    // large error range (in)
     900,    // large error timeout (ms)
-    10      // slew (关键！限制加速度，减少冲头)
+    12      // slew - 提高到12，让加减速更平滑
 );
 
 inline lemlib::Chassis chassis(

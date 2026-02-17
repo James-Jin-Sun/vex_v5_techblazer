@@ -16,10 +16,18 @@ void on_center_button() {}
 void logTask() {
     while (true) {
         lemlib::Pose pose = chassis.getPose();
+        
+        // Print to terminal
         std::cout << "X: " << pose.x
                   << " | Y: " << pose.y
                   << " | Th: " << pose.theta
                   << std::endl;
+        
+        // Display on brain screen
+        pros::screen::set_pen(pros::Color::white);
+        pros::screen::print(pros::E_TEXT_MEDIUM, 0, "X: %.2f Y: %.2f Th: %.1f", 
+                           (double)pose.x, (double)pose.y, (double)pose.theta);
+        
         pros::delay(250);
     }
 }
@@ -45,7 +53,8 @@ void initialize() {
 
     autonSelector = new AutonSelector();
     autonSelector->setAutons(std::vector<autonomousRoute>{
-        {"red",  "TEST Coords",     "coordinate test", coordinateTest},
+        //{"red",  "TEST Coords",     "coordinate test", coordinateTest},  // Commented out - only 5 slots available
+        {"red",  "TUNE Lateral",    "PID tuning", tuneLateralPID},
         {"red",  "Red Lft <mid>",   "high & mid",  redAuton1},
         {"red",  "Red Lft <left>",  "turn left",   redAuton2}, // field偏左，机器向左偏，x-
         {"red",  "Red Lft <right>", "turn right",  redAuton3}, // field偏右，机器向右偏，x+

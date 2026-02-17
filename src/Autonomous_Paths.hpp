@@ -109,6 +109,44 @@ void SkillAuton() {
 
 }
 
+// ==================== LATERAL PID TUNING ====================
+// Drive forward 96" at 90% speed to test straight line movement
+void tuneLateralPID() {
+    // Start at origin, facing forward
+    chassis.setPose(0, 0, 0);
+    pros::delay(200);
+    
+    // Drive forward 96 inches at 90% speed (114 out of 127)
+    chassis.moveToPoint(0, 96, 5000, lemlib::MoveToPointParams{.maxSpeed = 114}, false);
+    
+    // Get final position
+    lemlib::Pose finalPose = chassis.getPose();
+    double error = finalPose.y - 96.0;
+    
+    // Display results on brain screen
+    pros::screen::erase();
+    pros::screen::set_pen(pros::Color::green);
+    pros::lcd::print(3, "=== TEST COMPLETE ===");
+    pros::screen::set_pen(pros::Color::white);
+    pros::lcd::print(4, "Target:  96.00 in");
+    pros::lcd::print(5, "Actual:  %.2f in", (double)finalPose.y);
+    pros::lcd::print(6, "Error:   %.2f in", (double)error);
+    pros::lcd::print(7, "X drift: %.2f in", (double)finalPose.x);
+    pros::lcd::print(8, "Theta:   %.1f deg", (double)finalPose.theta);
+    
+    // Print to terminal
+    std::cout << "==========================================" << std::endl;
+    std::cout << "Target: 96.00 in | Actual: " << finalPose.y << " in" << std::endl;
+    std::cout << "Error: " << error << " in | Theta: " << finalPose.theta << " deg" << std::endl;
+    std::cout << "==========================================" << std::endl;
+    
+    pros::delay(10000);
+    
+    // // Drive forward 48 inches (total)
+    // chassis.moveToPoint(0, 48, 5000);
+    // pros::delay(10000);
+}
+
 void coordinateTest() {
     // Test 1: Start position
     chassis.setPose(50, -11.7, 0);
