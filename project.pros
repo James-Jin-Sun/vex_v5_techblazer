@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "bramp33",
+    "project_name": "<game_brampton>",
     "target": "v5",
     "templates": {
       "LemLib": {
@@ -299,7 +299,7 @@
     },
     "upload_options": {
       "description": "none",
-      "icon": "power",
+      "icon": "robot",
       "slot": 8,
       "after": "run"
     },

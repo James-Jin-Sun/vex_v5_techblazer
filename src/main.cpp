@@ -10,24 +10,16 @@
 AutonSelector* autonSelector = nullptr;
 
 // ======================= CENTER BUTTON (UNUSED) =======================
-void on_center_button() {}
+//void on_center_button() {}
 
 // ======================= POSE LOGGER =======================
 void logTask() {
     while (true) {
         lemlib::Pose pose = chassis.getPose();
-        
-        // Print to terminal
         std::cout << "X: " << pose.x
                   << " | Y: " << pose.y
                   << " | Th: " << pose.theta
                   << std::endl;
-        
-        // Display on brain screen
-        pros::screen::set_pen(pros::Color::white);
-        pros::screen::print(pros::E_TEXT_MEDIUM, 0, "X: %.2f Y: %.2f Th: %.1f", 
-                           (double)pose.x, (double)pose.y, (double)pose.theta);
-        
         pros::delay(250);
     }
 }
@@ -53,12 +45,11 @@ void initialize() {
 
     autonSelector = new AutonSelector();
     autonSelector->setAutons(std::vector<autonomousRoute>{
-        //{"red",  "TEST Coords",     "coordinate test", coordinateTest},  // Commented out - only 5 slots available
-        {"red",  "TUNE Lateral",    "PID tuning", tuneLateralPID},
         {"red",  "Red Lft <mid>",   "high & mid",  redAuton1},
         {"red",  "Red Lft <left>",  "turn left",   redAuton2}, // field偏左，机器向左偏，x-
         {"red",  "Red Lft <right>", "turn right",  redAuton3}, // field偏右，机器向右偏，x+
         {"red",  "TesmmateAWP",     "move forward", redAuton4},
+        {"red",  "Forward 96\"",    "move 96 inches", moveForward96},
 
         {"blue", "Red Rt <mid>",    "high & low",  blueAuton1},
         {"blue", "Red Rt <left>",   "turn left",   blueAuton2},
@@ -112,7 +103,11 @@ void opcontrol() {
     piston_arm.set_value(s_arm);
 
     while (true) {
+        //master.print(1, 0, "X: %.4f, Y: %.4f", chassis.getPose().x, chassis.getPose().y);
+        // lcd::print(1, "Y: %.3f", ); // y
+
         // --------- 驱动控制（保持你原来的算法不改）---------
+        
         int power = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
         int turn  = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
 
@@ -151,7 +146,8 @@ void opcontrol() {
             plunger.move(PLUNGER_DOWN_PWR);
         }
         else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
-            plunger.move(82);
+            plunger.move(50);
+            piston_goaldoor.set_value(true);
         }
         else {
             plunger.move(0);
@@ -175,5 +171,6 @@ void opcontrol() {
         prev_a    = cBtnA;
 
         pros::delay(10);
+        //pros::delay(500);
     }
 }

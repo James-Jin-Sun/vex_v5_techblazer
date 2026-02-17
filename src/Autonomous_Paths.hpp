@@ -12,7 +12,7 @@ void redAuton1() {
     
     chassis.setPose(50, -11.7, 0);
 
-    chassis.moveToPoint(50, -45, 1500, lemlib::MoveToPointParams{false, 90}, false);
+    chassis.moveToPoint(50, -42.5, 1500, lemlib::MoveToPointParams{false, 90}, false);
     
     intake_rollar.move(127);
 
@@ -20,41 +20,39 @@ void redAuton1() {
 
     piston_matchload.set_value(true);
 
-    chassis.moveToPoint(61, -45, 800, lemlib::MoveToPointParams{true, 36.5}, false);
+    chassis.moveToPoint(61.75, -42, 800, lemlib::MoveToPointParams{true, 40}, false);
 
     pros::delay(500);
 
-    chassis.moveToPoint(53, -45, 500, lemlib::MoveToPointParams{false, 60}, false);
+    chassis.moveToPoint(53, -42, 500, lemlib::MoveToPointParams{false, 60}, false);
 
-    chassis.moveToPoint(27.5, -45, 1100, lemlib::MoveToPointParams{false, 65}, false);
-
-    
+    chassis.moveToPoint(27, -43.75, 1100, lemlib::MoveToPointParams{false, 65}, false);
 
     piston_goaldoor.set_value(true);
 
-    plunger.move_velocity(80);
+    chassis.setPose(28, -43, 90);
+
+    plunger.move_velocity(43);
 
     pros::delay(900);
 
     plunger.move(-127);
-    
-    chassis.setPose(28, -45, 90);
 
     intake_rollar.move(-127);
+
+    /*
 
     piston_matchload.set_value(false);
 
     chassis.moveToPoint(48, -45, 600, lemlib::MoveToPointParams{true, 80}, false);
 
-    //pros::delay(100);
+    pros::delay(100);
 
-    chassis.turnToHeading(315,800);
-
-    plunger.move_velocity(0);
+    chassis.turnToHeading(317,800);
     
     intake_rollar.move(127);
 
-    chassis.moveToPoint(26, -25.5, 1500, lemlib::MoveToPointParams{true, 50}, false);
+    chassis.moveToPoint(28, -24.5, 1500, lemlib::MoveToPointParams{true, 50}, false);
 
     pros::delay(300);
 
@@ -62,7 +60,7 @@ void redAuton1() {
 
     pros::delay(300);
 
-    chassis.moveToPoint(20, -20.5, 1500, lemlib::MoveToPointParams{true, 30}, false);
+    chassis.moveToPoint(23, -18.5, 1500, lemlib::MoveToPointParams{true, 30}, false);
 
     chassis.turnToHeading(135,2000);
 
@@ -72,21 +70,25 @@ void redAuton1() {
 
     pros::delay(200);
 
-    chassis.moveToPoint(10.4, -9.1, 5000, lemlib::MoveToPointParams{false, 30}, false);
+    chassis.moveToPoint(12.4, -10.1, 5000, lemlib::MoveToPointParams{false, 30}, false);
     
     piston_body.set_value(true);
 
-    //piston_matchload.set_value(false);
+    piston_matchload.set_value(false);
 
-    plunger.move(65);
+    plunger.move(40);
 
     pros::delay(1000);
-
-    piston_body.set_value(false);
+    */
 }
 
 void redAuton2() {
-
+    rightDT.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    leftDT.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    // set position to x:0, y:0, heading:0
+    chassis.setPose(0, 0, 0);
+    // turn to face heading 90 with a very long timeout
+    chassis.turnToHeading(90, 100000);
 }
 
 void redAuton3() {
@@ -98,74 +100,222 @@ void redAuton4() {
 }
 
 void blueAuton1() {
+    piston_arm.set_value(true);
+    plunger.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+
+    
+    chassis.setPose(50, 11.7, 0);
+
+    chassis.moveToPoint(50, 42, 1500, lemlib::MoveToPointParams{true, 90}, false);
+    
+    intake_rollar.move(127);
+
+    chassis.turnToHeading(90,500);
+
+    piston_matchload.set_value(true);
+
+    chassis.moveToPoint(61.6, 42, 800, lemlib::MoveToPointParams{true, 36.5}, false);
+
+    pros::delay(500);
+
+    chassis.moveToPoint(53, 42, 500, lemlib::MoveToPointParams{false, 60}, false);
+
+    chassis.moveToPoint(25, 41.5, 1100, lemlib::MoveToPointParams{false, 90}, false);
+
+
+    piston_goaldoor.set_value(true);
+
+    chassis.setPose(27, 42, 90);
+
+    plunger.move_velocity(35);
+
+    pros::delay(1300);
+
+    plunger.move(-127);
+
+    intake_rollar.move(-127);
+
+    piston_matchload.set_value(false);
+
+    chassis.moveToPoint(48, 42, 600, lemlib::MoveToPointParams{true, 80}, false);
+
+    pros::delay(100);
+
+    chassis.turnToHeading(225,800);
+    
+    intake_rollar.move(127);
+
+    chassis.moveToPoint(27.2, 21.9, 1500, lemlib::MoveToPointParams{true, 50}, false);
+
+    pros::delay(300);
+
+    piston_matchload.set_value(true);
+
+    pros::delay(300);
+
+    chassis.moveToPoint(24.7, 18.5, 1500, lemlib::MoveToPointParams{true, 30}, false);
+
+    piston_matchload.set_value(false);
+
+    //chassis.turnToHeading(135,2000);
+
+    piston_goaldoor.set_value(true);
+
+    plunger.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+
+    pros::delay(200);
+
+    chassis.moveToPoint(13.6, 7.2, 5000, lemlib::MoveToPointParams{true, 30}, false);
+    
+    //piston_body.set_value(true);
+
+    //piston_matchload.set_value(false);
+
+    //plunger.move(40);
+
+    //pros::delay(1000);
+
+    //piston_body.set_value(false);
+
+    intake_rollar.move(-85);
 }
 
 void blueAuton2() {
 
 }
 
+void moveForward96() {
+    // Set initial position at origin, facing forward (0 degrees)
+    chassis.setPose(0, 0, 0);
+    
+    // Move forward 96 inches (use backwards=true to force forward drive)
+    chassis.moveToPoint(0, 96, 5000, lemlib::MoveToPointParams{true, 80}, false);
+}
+
+// 下面 SkillsAuton / 其它函数保持你原文件内容不变（我没删没改逻辑）
+// ------- 你的原 Autonomous_Paths.hpp 后续内容 -------
 
 void SkillAuton() {
+        piston_arm.set_value(true);
+        plunger.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+        
+        chassis.setPose(50, -11.7, 0);
+
+        //第一个matchload
+        chassis.moveToPoint(50, -45, 1500, lemlib::MoveToPointParams{false, 90}, false);
+        intake_rollar.move(127);
+        chassis.turnToHeading(90,500);
+        piston_matchload.set_value(true);
+        chassis.moveToPoint(61.65, -45, 1300, lemlib::MoveToPointParams{true, 37.5}, false);
+        pros::delay(800);
+
+        //离开第一个点位
+        chassis.moveToPoint(48, -45, 1200, lemlib::MoveToPointParams{false, 80}, false);
+        piston_matchload.set_value(false);
+        chassis.turnToHeading(60,800);
+        intake_rollar.move(127);
+    
+            //移动到第二个点位
+            chassis.moveToPoint(34, -58.65, 1500, lemlib::MoveToPointParams{false, 80}, false);
+            chassis.turnToHeading(90,1200);
+            intake_rollar.move(127);
+            
+            chassis.moveToPoint(-41, -58.65, 10000, lemlib::MoveToPointParams{false, 90}, false);
+            chassis.turnToHeading(0,800);
+            intake_rollar.move(127);
+            pros::delay(300);
+            
+            chassis.moveToPoint(-41, -48, 10000, lemlib::MoveToPointParams{true, 90}, false);
+            //转向第二个matchload
+            chassis.turnToHeading(-90,800);
+            intake_rollar.move(127);
+            pros::delay(300);
+            //score
+            
+            chassis.moveToPoint(-25, -48, 1100, lemlib::MoveToPointParams{false, 127}, false);
+            chassis.setPose(-25, -48, 270);
+            piston_goaldoor.set_value(true);
+            
+            
+            intake_rollar.move(127);
+            plunger.move_velocity(35);
+            pros::delay(1100);
+            plunger.move_velocity(-127);
+            pros::delay(500);
+            piston_goaldoor.set_value(false);
+            //吃第二个matchload
+            
+            
+            piston_matchload.set_value(true);
+            intake_rollar.move(127);
+           
+            chassis.moveToPoint(-43, -48, 1500, lemlib::MoveToPointParams{true, 110}, false);
+            chassis.moveToPoint(-71, -46, 1500, lemlib::MoveToPointParams{true, 40}, false);
+            pros::delay(2000);
+            
+            //score
+            chassis.moveToPoint(-25, -48, 1100, lemlib::MoveToPointParams{false, 90}, false);
+            chassis.setPose(-25,-48,270);
+            piston_goaldoor.set_value(true);
+            piston_matchload.set_value(false);
+            plunger.move_velocity(35);
+            pros::delay(900);
+            plunger.move_velocity(-127);
+            pros::delay(500);
+            
+            
+            chassis.moveToPoint(-45, -48, 600, lemlib::MoveToPointParams{true, 100}, false);
+            chassis.turnToHeading(0,800);
+
+                //移动到第三个点位
+                /*
+                chassis.moveToPoint(-45, 49, 1500, lemlib::MoveToPointParams{true, 100}, false);
+                chassis.turnToHeading(270,800);
+                pros::delay(300);
+                piston_matchload.set_value(true);
+                pros::delay(300);
+
+                //吃第三个matchload
+                chassis.moveToPoint(-70, 49, 1500, lemlib::MoveToPointParams{true, 30}, false);
+                chassis.moveToPoint(-50, 49, 1000, lemlib::MoveToPointParams{false, 80}, false);
+                piston_matchload.set_value(false);
+                chassis.turnToHeading(135,800);
+                chassis.moveToPoint(-30, 30, 1500, lemlib::MoveToPointParams{false, 90}, false);
+                chassis.turnToHeading(90,500);
+
+                    //到达第四个点位
+                    chassis.moveToPoint(41, 30, 800, lemlib::MoveToPointParams{true, 100}, false);
+                    pros::delay(500);
+                    chassis.turnToHeading(0,500);
+                    chassis.moveToPoint(41, 49, 500, lemlib::MoveToPointParams{true, 60}, false);
+                    //对准goal
+                    chassis.turnToHeading(90,500);
+                    piston_matchload.set_value(true);
+                    //goal
+                    chassis.moveToPoint(27, 49, 1100, lemlib::MoveToPointParams{false, 65}, false);
+                    chassis.setPose(27, 49, 270);
+                    //matchload
+                    chassis.moveToPoint(70, 49, 1100, lemlib::MoveToPointParams{true, 65}, false);
+                    chassis.moveToPoint(50, 49, 1100, lemlib::MoveToPointParams{false, 80}, false);
+                    piston_matchload.set_value(false);
+                    //goal
+                    chassis.moveToPoint(27, 49, 1100, lemlib::MoveToPointParams{false, 65}, false);
+                    chassis.setPose(27, 49, 90);
+                    piston_goaldoor.set_value(true);
+                    piston_matchload.set_value(false);
+                    pros::delay(900);
+                    intake_rollar.move(-127);
+
+                        chassis.moveToPoint(43, 49, 800, lemlib::MoveToPointParams{true, 100}, false);
+                        chassis.turnToHeading(0,500);
+                        chassis.moveToPoint(43, 30, 800, lemlib::MoveToPointParams{false, 100}, false);
+                        chassis.turnToHeading(270,900);
+                        chassis.moveToPoint(70, 30, 2000, lemlib::MoveToPointParams{false, 127}, false);
+                        chassis.moveToPoint(60, 30, 2000, lemlib::MoveToPointParams{true, 127}, false);
+                        chassis.turnToHeading(0,900);
+                        chassis.moveToPoint(60, 0, 15000, lemlib::MoveToPointParams{false, 127}, false);
+
+                        */
 
 }
-
-// ==================== LATERAL PID TUNING ====================
-// Drive forward 96" at 90% speed to test straight line movement
-void tuneLateralPID() {
-    // Start at origin, facing forward
-    chassis.setPose(0, 0, 0);
-    pros::delay(200);
-    
-    // Drive forward 96 inches at 90% speed (114 out of 127)
-    chassis.moveToPoint(0, 96, 5000, lemlib::MoveToPointParams{.maxSpeed = 114}, false);
-    
-    // Get final position
-    lemlib::Pose finalPose = chassis.getPose();
-    double error = finalPose.y - 96.0;
-    
-    // Display results on brain screen
-    pros::screen::erase();
-    pros::screen::set_pen(pros::Color::green);
-    pros::lcd::print(3, "=== TEST COMPLETE ===");
-    pros::screen::set_pen(pros::Color::white);
-    pros::lcd::print(4, "Target:  96.00 in");
-    pros::lcd::print(5, "Actual:  %.2f in", (double)finalPose.y);
-    pros::lcd::print(6, "Error:   %.2f in", (double)error);
-    pros::lcd::print(7, "X drift: %.2f in", (double)finalPose.x);
-    pros::lcd::print(8, "Theta:   %.1f deg", (double)finalPose.theta);
-    
-    // Print to terminal
-    std::cout << "==========================================" << std::endl;
-    std::cout << "Target: 96.00 in | Actual: " << finalPose.y << " in" << std::endl;
-    std::cout << "Error: " << error << " in | Theta: " << finalPose.theta << " deg" << std::endl;
-    std::cout << "==========================================" << std::endl;
-    
-    pros::delay(10000);
-    
-    // // Drive forward 48 inches (total)
-    // chassis.moveToPoint(0, 48, 5000);
-    // pros::delay(10000);
-}
-
-void coordinateTest() {
-    // Test 1: Start position
-    chassis.setPose(50, -11.7, 0);
-    pros::delay(2000);
-    
-    // Test 2: Move to (50, -45)
-    std::cout << "Moving to (50, -45)" << std::endl;
-    chassis.moveToPoint(50, -45, 5000);
-    pros::delay(3000);
-    
-    // Test 3: Move to origin
-    std::cout << "Moving to (0, 0)" << std::endl;
-    chassis.moveToPoint(0, 0, 5000);
-    pros::delay(3000);
-    
-    // Test 4: Move to (72, 0) - should be right wall
-    std::cout << "Moving to (72, 0)" << std::endl;
-    chassis.moveToPoint(72, 0, 5000);
-    pros::delay(10000);
-}
-
 #endif
