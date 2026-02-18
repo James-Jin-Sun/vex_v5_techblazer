@@ -45,14 +45,14 @@ void initialize() {
 
     autonSelector = new AutonSelector();
     autonSelector->setAutons(std::vector<autonomousRoute>{
-        {"red",  "Red Lft <mid>",   "high & mid",  redAuton1},
-        {"red",  "Red Lft <left>",  "turn left",   redAuton2}, // field偏左，机器向左偏，x-
-        {"red",  "Red Lft <right>", "turn right",  redAuton3}, // field偏右，机器向右偏，x+
-        {"red",  "TesmmateAWP",     "move forward", redAuton4},
-        {"red",  "Forward 96\"",    "move 96 inches", moveForward96},
+        {"red", "Red Lft <mid>", "high & mid", redAuton1},
+        {"red", "Red Lft <left>", "turn left", redAuton2},   // field偏左，机器向左偏，x-
+        {"red", "Red Lft <right>", "turn right", redAuton3}, // field偏右，机器向右偏，x+
+        {"red", "TesmmateAWP", "move forward", redAuton4},
+        {"red", "Forward 96\"", "move 96 inches", moveForward96},
 
-        {"blue", "Red Rt <mid>",    "high & low",  blueAuton1},
-        {"blue", "Red Rt <left>",   "turn left",   blueAuton2},
+        {"blue", "Red Rt <mid>", "high & low", blueAuton1},
+        {"blue", "pid turn test", "pid turn test", blueAuton2},
         //{"blue", "Red Rt <right>", "turn right", blueAuton3},
     });
 

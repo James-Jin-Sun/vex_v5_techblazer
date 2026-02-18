@@ -83,12 +83,7 @@ void redAuton1() {
 }
 
 void redAuton2() {
-    rightDT.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    leftDT.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    // set position to x:0, y:0, heading:0
-    chassis.setPose(0, 0, 0);
-    // turn to face heading 90 with a very long timeout
-    chassis.turnToHeading(90, 100000);
+
 }
 
 void redAuton3() {
@@ -181,15 +176,48 @@ void blueAuton1() {
 }
 
 void blueAuton2() {
-
+    rightDT.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    leftDT.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    // set position to x:0, y:0, heading:0
+    chassis.setPose(0, 0, 0);
+    // turn to face heading 90 with a very long timeout
+    chassis.turnToHeading(90, 100000);
 }
 
 void moveForward96() {
     // Set initial position at origin, facing forward (0 degrees)
     chassis.setPose(0, 0, 0);
     
+    // Start position monitoring in a separate task
+    volatile bool isMoving = true;
+    pros::Task monitorTask([&isMoving]() {
+        while (isMoving) {
+            lemlib::Pose pose = chassis.getPose();
+            std::cout << "X: " << pose.x 
+                      << " Y: " << pose.y 
+                      << " H: " << pose.theta 
+                      << std::endl;
+            pros::delay(100);
+        }
+    });
+    
     // Move forward 96 inches (use backwards=true to force forward drive)
-    chassis.moveToPoint(0, 96, 5000, lemlib::MoveToPointParams{true, 80}, false);
+    chassis.moveToPoint(0, 96, 5000, lemlib::MoveToPointParams{true, 90}, false);
+    // pros::delay(200);
+    // // Move backward 96 inches (use backwards=false to force forward drive)
+    // chassis.moveToPoint(0, 0, 5000, lemlib::MoveToPointParams{false, 90}, false);
+
+    // Stop the monitoring task
+    isMoving = false;
+    pros::delay(150);
+    
+    // Print final position
+    lemlib::Pose finalPose = chassis.getPose();
+    std::cout << "=== FINAL POSITION ===" << std::endl;
+    std::cout << "X: " << finalPose.x 
+              << " Y: " << finalPose.y 
+              << " H: " << finalPose.theta 
+              << std::endl;
 }
 
 // 下面 SkillsAuton / 其它函数保持你原文件内容不变（我没删没改逻辑）
