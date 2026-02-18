@@ -89,7 +89,7 @@ inline lemlib::OdomSensors sensors(
 
 // ✅ 不积累误差的角度 PID（不改）
 inline lemlib::ControllerSettings angular_controller(
-    7.0 ,    // kP 
+    1.29 ,    // kP 
     0,     // kI 
     9,      // kD 
     0,          // anti windup
